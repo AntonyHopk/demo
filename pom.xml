@@ -67,7 +67,9 @@
         <!--Версионирование/миграции-->
         <dependency>
             <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>11.20.2</version>
+            <scope>runtime</scope>
         </dependency>
         <!--Тесты-->
         <dependency>
