@@ -10,7 +10,6 @@ public class OpenApiConfig {
 
     @Bean
     public OpenAPI usersOpenAPI() {
-
         return new OpenAPI().info(new Info().title("Users API").version("1.0").description("Users API in memory"));
 
     }
