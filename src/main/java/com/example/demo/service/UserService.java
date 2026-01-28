@@ -19,15 +19,18 @@ public class UserService {
     public List<User> getAll() {
         return userRepository.findAll();
     }
+
     public User create(UserCreateRequest user) {
         return userRepository.save(new User(user.getUsername()));
     }
+
     public User getById(Long id) {
-        return userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(id));
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
+
     @Transactional
     public User update(Long id, UserUpdateRequest userUpdateRequest) {
-        User user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(id));
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         user.setUsername(userUpdateRequest.getUsername());
         return userRepository.save(user);
     }
@@ -35,6 +38,7 @@ public class UserService {
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
+
 
     public static class UserNotFoundException extends RuntimeException {
         public UserNotFoundException(Long id) {
