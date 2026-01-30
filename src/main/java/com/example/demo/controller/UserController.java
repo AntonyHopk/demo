@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.UserCreateRequest;
+import com.example.demo.dto.UserResponse;
 import com.example.demo.dto.UserUpdateRequest;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
@@ -33,23 +34,23 @@ public class UserController {
         return userService.getById(id);
     }
 
-    @Operation(
-            summary = "Создать пользователя",
-            description = "Создает нового пользователя на основе JSON-данных",
-            tags = {"Users"},
-            operationId = "createUser",
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "sadasdas", required = true),
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "Пользователь успешно создан"),
-                    @ApiResponse(responseCode = "400", description = "Некорректные данные")
-            }
-    )
+//    @Operation(
+//            summary = "Создать пользователя",
+//            description = "Создает нового пользователя на основе JSON-данных",
+//            tags = {"Users"},
+//            operationId = "createUser",
+//            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "sadasdas", required = true),
+//            responses = {
+//                    @ApiResponse(responseCode = "201", description = "Пользователь успешно создан"),
+//                    @ApiResponse(responseCode = "400", description = "Некорректные данные")
+//            }
+//    )
 
-    @PostMapping
-    public ResponseEntity<User> create(@RequestBody UserCreateRequest user) {
-        User userCreated = userService.create(user);
-        return ResponseEntity.created(URI.create("/users/" + userCreated.getId())).body(userCreated);
-    }
+//    @PostMapping
+//    public ResponseEntity<User> create(@RequestBody UserCreateRequest user) {
+//        UserResponse userCreated = userService.create(user);
+//        return ResponseEntity.created(URI.create("/users/" + userCreated.id())).body(userCreated);
+//    }
 
     @PutMapping("/{id}")
     public User update(@PathVariable Long id, @RequestBody UserUpdateRequest user) {
