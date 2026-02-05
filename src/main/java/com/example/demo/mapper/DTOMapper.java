@@ -15,7 +15,9 @@ public final class DTOMapper {
                 user.getUsername(),
                 user.getProfile() == null ? null : new ProfileResponse(user.getProfile().getFirstName(),
                         user.getProfile().getLastName()),
-                user.getRoles().stream().map(Role::getName).collect(Collectors.toSet()));
+                user.getRoles().stream().map(Role::getName).collect(Collectors.toSet()),
+                user.getAddress() == null ? null : new AddressDTO(user.getAddress().getCountry(),
+                        user.getAddress().getCity(),user.getAddress().getStreet()));
     }
 
     public static UserShortResponse toUserShortResponse(User user) {

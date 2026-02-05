@@ -7,6 +7,6 @@ import lombok.Getter;
 import java.util.Set;
 
 
-public record UserCreateRequest (ProfileRequest profile,String username, Set<String> roles){
+public record UserCreateRequest (ProfileRequest profile,String username, Set<String> roles,AddressDTO address){
 
 }

@@ -30,8 +30,14 @@ public class User {
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL) //inverse side
     private Profile profile;
 
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Address address;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Order> orders = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Comment> comments = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
@@ -42,19 +48,28 @@ public class User {
 
     public void addRole(Role role) {
         roles.add(role);
-        if(role.getUsers()==null){
+        if (role.getUsers() == null) {
             role.setUsers(new HashSet<>());
         }
         role.getUsers().add(this);
     }
+
     public void addOrder(Order order) {
         orders.add(order);
         order.setUser(this);
     }
-    public  void setProfile(Profile profile) {
+
+    public void setProfile(Profile profile) {
         this.profile = profile;
-        if(profile!=null){
+        if (profile != null) {
             profile.setUser(this);
+        }
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+        if (address != null) {
+            address.setUser(this);
         }
     }
 }

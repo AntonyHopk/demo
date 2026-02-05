@@ -4,6 +4,7 @@ import com.example.demo.dto.UserCreateRequest;
 import com.example.demo.dto.UserResponse;
 import com.example.demo.dto.UserUpdateRequest;
 import com.example.demo.mapper.DTOMapper;
+import com.example.demo.model.Address;
 import com.example.demo.model.Profile;
 import com.example.demo.model.Role;
 import com.example.demo.model.User;
@@ -42,6 +43,13 @@ public class UserService {
                 user.addRole(role);
             }
         }
+       if (req.address() != null) {
+           Address address = new Address();
+           address.setCity(req.address().city());
+           address.setCountry(req.address().country());
+           address.setStreet(req.address().street());
+           user.setAddress(address);
+       }
         User savedUser = userRepository.save(user);
         User loadUser = userRepository.findWithProfileAndRoleByUsername(savedUser.getUsername()).orElseThrow();
         return DTOMapper.toUserResponse(loadUser);
