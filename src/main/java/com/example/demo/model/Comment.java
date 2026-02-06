@@ -13,6 +13,11 @@ import java.time.OffsetDateTime;
 @Table(name = "comments")
 @RequiredArgsConstructor
 public class Comment {
+
+    public Comment(String text) {
+        this.text = text;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

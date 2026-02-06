@@ -45,6 +45,20 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new LinkedHashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "group_members",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<Group> groups = new LinkedHashSet<>();
+
+
+    public void addGroup(Group group) {
+        groups.add(group);
+        if (group.getUsers() == null) {
+            group.setUsers(new HashSet<>());
+        }
+        group.getUsers().add(this);
+    }
 
     public void addRole(Role role) {
         roles.add(role);
@@ -57,6 +71,11 @@ public class User {
     public void addOrder(Order order) {
         orders.add(order);
         order.setUser(this);
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setUser(this);
     }
 
     public void setProfile(Profile profile) {

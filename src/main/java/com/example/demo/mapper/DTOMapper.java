@@ -3,6 +3,7 @@ package com.example.demo.mapper;
 import com.example.demo.dto.*;
 import com.example.demo.model.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public final class DTOMapper {
@@ -17,7 +18,7 @@ public final class DTOMapper {
                         user.getProfile().getLastName()),
                 user.getRoles().stream().map(Role::getName).collect(Collectors.toSet()),
                 user.getAddress() == null ? null : new AddressDTO(user.getAddress().getCountry(),
-                        user.getAddress().getCity(),user.getAddress().getStreet()));
+                        user.getAddress().getCity(), user.getAddress().getStreet()));
     }
 
     public static UserShortResponse toUserShortResponse(User user) {
@@ -47,5 +48,22 @@ public final class DTOMapper {
                 orderItem.getQty(),
                 orderItem.getPriceAtPurchase(),
                 toProductResponse(orderItem.getProduct()));
+    }
+
+    public static Comment toComment(CommentCreateRequest commentCreateRequest) {
+        return new Comment(commentCreateRequest.text());
+    }
+
+    public static CommentResponse toCommentResponse(Comment comment) {
+        return new CommentResponse(comment.getId(),
+                toUserShortResponse(comment.getUser()),
+                comment.getText(),
+                comment.getCreatedAt());
+    }
+
+    public static GroupResponse toGroupResponse(Group group) {
+        return new GroupResponse(group.getId(),
+                group.getName(),
+                group.getUsers().stream().map(DTOMapper::toUserShortResponse).collect(Collectors.toList()));
     }
 }
